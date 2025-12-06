@@ -1,0 +1,5 @@
+selenium==4.20.0
+behave==1.2.6
+webdriver-manager==4.0.1
+allure-behave==2.13.2
+jproperties==2.1.1

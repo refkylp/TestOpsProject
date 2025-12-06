@@ -1,0 +1,8 @@
+@loginTest
+Feature: As System Administrator, I want to log in to the system securely. # features/login.feature:2
+
+  Scenario: show the vacation days page after logging in as administrator  # features/login.feature:4
+    Given Goes to the given "url"                                          # features/steps/login_steps.py:5
+    Given Click the Company button                                         # features/steps/login_steps.py:11
+    Given Click the Careers button                                         # features/steps/login_steps.py:17
+
