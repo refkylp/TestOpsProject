@@ -7,15 +7,7 @@ class LoginPage(BasePage):
     # Locators
     COMPANY_SELECT= (By.XPATH, "/html/body/nav/div[2]/div/ul[1]/li[6]/a")
     CAREERS_SELECT= (By.XPATH, "//*[@id='navbarNavDropdown']/ul[1]/li[6]/div/div[2]/a[2]")
-    # COMPANY_DROPDOWN_TABLE = (By.ID, "cbCompany_B-1Img")
-    # COMPANY_DROPDOWN_LIST = (By.XPATH, "//tr[@class='dxeListBoxItemRow']")
-    # USERNAME = (By.ID, "teUser_I")
-    # PASSWORD = (By.ID, "PV_I")
-    # LOGIN_BUTTON = (By.ID, "btn_CD")
-    # BEAM_SYSTEM_ADMIN_RADIO = (By.ID, "xppcProcurationList_xrblProcurationList_RB0_I_D")
-    # CONTINUE_BUTTON = (By.ID, "xppcProcurationList_xbtnContinue_CD")
-    # INCORRECT_MESSAGE = (By.XPATH, "//span[@id='xmmMessage']")
-    # INCORRECT_MESSAGE_BUTTON = (By.ID, "MessageBox1_xpcMsgBox_xbtnOK_CD")
+
 
     def __init__(self):
         super().__init__()

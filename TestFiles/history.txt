@@ -1,0 +1,90 @@
+    1  dnf update -y
+    2  dnf install docker -y
+    3  docker ps
+    4  systemctl start docker
+    5  systemctl enable docker
+    6  docker ps
+    7  usermod -a -G docker ec2-user
+    8  curl -SL https://github.com/docker/compose/releases/download/v2.26.0/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+    9  chmod +x /usr/local/bin/docker-compose
+   10  python --version
+   11  python3 --version
+   12  exit
+   13  yum install python3 -y
+   14  yum install git -y
+   15  yum install pip
+   16  pip install virtualenv
+   17  python3 --version
+   18  virtualenv -p python3.9.24 test_app
+   19  source ./test_app/bin/activate
+   20  cd /tmp
+   21  curl https://intoli.com/install-google-chrome.sh | bash
+   22  sudo mv /usr/bin/google-chrome-stable /usr/bin/google-chrome
+   23  google-chrome — version && which google-chrome
+   24  google-chrome --no-sandbox --version
+   25  wget https://chromedriver.storage.googleapis.com/143.0.7499.40/chromedriver_linux64.zip
+   26  wget https://storage.googleapis.com/chrome-for-testing-public/143.0.7499.40/linux64/chrome-linux64.zip
+   27  unzip chromedriver_linux64.zip
+   28  unzip chrome_linux64.zip
+   29  ls
+   30  unzip chrome-linux64.zip 
+   31  ls
+   32  sudo mv chrome-linux64 /usr/bin/chromedriver
+   33  chromedriver --version
+   34  chromedriver -version
+   35  sudo rm -rf /usr/bin/chromedriver
+   36  ls
+   37  unzip chrome-linux64.zip 
+   38  ls
+   39  cd chrome-linux64/
+   40  ls
+   41  which google-chrome
+   42  cd ..
+   43  ls
+   44  rm -rf chrome-linux64
+   45  wget https://storage.googleapis.com/chrome-for-testing-public/143.0.7499.40/linux64/chromedriver-linux64.zip
+   46  ls
+   47  unzip chromedriver-linux64.zip 
+   48  ls
+   49  cd chromedriver-linux64/
+   50  ls
+   51  sudo mv chromedriver /usr/bin/chromedriver
+   52  chromedriver — version
+   53  chromedriver -version
+   54  cd 
+   55  cd 
+   56  pwd
+   57  cd /home/ec2-user/
+   58  ls
+   59  cd TestFiles/
+   60  ls
+   61  cd ..
+   62  cd ..
+   63  cd TestOpsProject/
+   64  git init
+   65  git add .
+   66  git commit -m "TestFiles added"
+   67  git config --global --edit
+   68  git push -u origin main https://github.com/refkylp/TestOpsProject.git
+   69  git pull https://github.com/refkylp/TestOpsProject.git
+   70  cd ..
+   71  git clone https://github.com/refkylp/TestOpsProject.git
+   72  sudo chown -R ec2-user:ec2-user /home/ec2-user/TestOpsProject
+   73  git clone https://github.com/refkylp/TestOpsProject.git
+   74  sudo chown -R ec2-user:ec2-user /home/ec2-user/TestFiles/
+   75  sudo chown -R ec2-user:ec2-user /home/ec2-user/
+   76  cd TestOpsProject/
+   77  ls
+   78  git add .
+   79  git commit -m "TestFiles added"
+   80  git push
+   81  ls
+   82  pip install selenium
+   83  cd TestFiles/
+   84  behave
+   85  pip install behave
+   86  behave
+   87  pip install -r requirements.txt
+   88  selenium -version
+   89  history
+   90  history >> history.txt

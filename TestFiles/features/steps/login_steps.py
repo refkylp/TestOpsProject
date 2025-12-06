@@ -6,19 +6,45 @@ from utilities.driver import Driver
 def step_navigate_to_url(context, url):
     """Navigate to the given URL"""
     ReusableMethods.navigate_to_url(url)
-    ReusableMethods.wait(5)
+    ReusableMethods.wait(10)
 
 @given('Click the Company button')
 def step_click_company_button(context):
     """Click the Company button"""
-    context.login_page.get_company_select().click()
-    ReusableMethods.wait(5)
+    element = context.login_page.get_company_select()
+    Driver.get_driver().execute_script("arguments[0].click();", element)
+    ReusableMethods.wait(10)
 
 @given('Click the Careers button')
 def step_click_careers_button(context):
     """Click the Careers button"""
-    context.login_page.get_careers_select().click()
-    ReusableMethods.wait(5)
+    element = context.login_page.get_careers_select()
+    Driver.get_driver().execute_script("arguments[0].click();", element)
+    ReusableMethods.wait(10)
+
+
+
+# from behave import given, when, then
+# from utilities.reusable_methods import ReusableMethods
+# from utilities.driver import Driver
+
+# @given('Goes to the given "{url}"')
+# def step_navigate_to_url(context, url):
+#     """Navigate to the given URL"""
+#     ReusableMethods.navigate_to_url(url)
+#     ReusableMethods.wait(10)
+
+# @given('Click the Company button')
+# def step_click_company_button(context):
+#     """Click the Company button"""
+#     context.login_page.get_company_select().click()
+#     ReusableMethods.wait(10)
+
+# @given('Click the Careers button')
+# def step_click_careers_button(context):
+#     """Click the Careers button"""
+#     context.login_page.get_careers_select().click()
+#     ReusableMethods.wait(10)
 
 
 
