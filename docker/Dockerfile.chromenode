@@ -14,15 +14,15 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Requirements dosyasını kopyala ve bağımlılıkları yükle
-COPY requirements.txt .
+COPY TestFiles/requirements.txt .
 RUN pip3 install --no-cache-dir -r requirements.txt
 
 # Test dosyalarını kopyala
-COPY features/ ./features/
-COPY pages/ ./pages/
-COPY utilities/ ./utilities/
-COPY configuration.properties .
-COPY behave.ini .
+COPY TestFiles/features/ ./features/
+COPY TestFiles/pages/ ./pages/
+COPY TestFiles/utilities/ ./utilities/
+COPY TestFiles/configuration.properties .
+COPY TestFiles/behave.ini .
 
 # Reports klasörünü oluştur
 RUN mkdir -p reports/allure-results
