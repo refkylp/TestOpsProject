@@ -1,0 +1,93 @@
+---
+# Chrome Node Deployment
+# Runs Selenium Grid nodes with Chrome browser
+# These nodes accept and execute test commands from the Test Controller
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chrome-node
+  namespace: test-automation
+  labels:
+    app: test-automation
+    component: chrome-node
+spec:
+  # Number of Chrome Node replicas (node_count parameter)
+  # REQUIREMENT: Dynamically created based on node_count (min=1, max=5)
+  # Can be scaled: kubectl scale deployment chrome-node --replicas=<1-5> -n test-automation
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: test-automation
+      component: chrome-node
+
+  template:
+    metadata:
+      labels:
+        app: test-automation
+        component: chrome-node
+    spec:
+      containers:
+      - name: chrome-node
+        # Docker image built from Dockerfile.chromenode
+        image: 114195610881.dkr.ecr.us-east-1.amazonaws.com/test-chrome:latest
+        imagePullPolicy: Always
+
+        ports:
+        - name: selenium
+          containerPort: 4444
+          protocol: TCP
+
+        # Environment variables for Selenium Grid
+        env:
+        - name: SE_NODE_MAX_SESSIONS
+          value: "1"
+        - name: SE_NODE_SESSION_TIMEOUT
+          value: "300"
+        - name: DISPLAY
+          value: ":99"
+
+        # Resource limits to prevent overuse
+        resources:
+          limits:
+            cpu: "1000m"      # 1 CPU core
+            memory: "2Gi"     # 2 GB RAM
+          requests:
+            cpu: "500m"       # 0.5 CPU core minimum
+            memory: "1Gi"     # 1 GB RAM minimum
+
+        # Liveness probe - checks if container is alive
+        # Kubernetes will restart the container if this fails
+        livenessProbe:
+          httpGet:
+            path: /wd/hub/status
+            port: 4444
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+
+        # Readiness probe - checks if container is ready to accept traffic
+        # Service won't route traffic to this pod until ready
+        readinessProbe:
+          httpGet:
+            path: /wd/hub/status
+            port: 4444
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+
+        # Volume mounts
+        volumeMounts:
+        - name: shm
+          mountPath: /dev/shm
+
+      # Volumes
+      volumes:
+      # Shared memory volume for Chrome
+      # Chrome needs more shared memory than the default 64MB
+      - name: shm
+        emptyDir:
+          medium: Memory
+          sizeLimit: 2Gi

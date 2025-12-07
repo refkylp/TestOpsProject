@@ -1,0 +1,73 @@
+---
+# Test Case Controller Pod Deployment
+# REQUIREMENT: This pod is responsible for reading and managing test cases
+# It passes test cases to Chrome Node Pods for execution via Kubernetes Service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-controller
+  namespace: test-automation
+  labels:
+    app: test-automation
+    component: test-controller
+spec:
+  # Single replica for Test Controller
+  # Only one controller is needed to manage tests
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: test-automation
+      component: test-controller
+
+  template:
+    metadata:
+      labels:
+        app: test-automation
+        component: test-controller
+    spec:
+      # RestartPolicy for Deployment is Always by default
+      # Controller will restart if it exits after completing tests
+      containers:
+      - name: test-controller
+        # Docker image built from Dockerfile.controller
+        image: 114195610881.dkr.ecr.us-east-1.amazonaws.com/ops-controller:latest
+        imagePullPolicy: IfNotPresent
+
+        # Environment variables from ConfigMap
+        # INTER-POD COMMUNICATION: Uses Kubernetes Service DNS
+        env:
+        - name: CHROME_NODE_SERVICE
+          valueFrom:
+            configMapKeyRef:
+              name: test-automation-config
+              key: chrome_node_service
+        - name: MAX_RETRIES
+          valueFrom:
+            configMapKeyRef:
+              name: test-automation-config
+              key: max_retries
+        - name: RETRY_DELAY
+          valueFrom:
+            configMapKeyRef:
+              name: test-automation-config
+              key: retry_delay
+
+        # Resource limits
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
+
+        # Optional: Add liveness probe if controller runs continuously
+        # Commented out since current controller exits after test completion
+        # livenessProbe:
+        #   exec:
+        #     command:
+        #     - pgrep
+        #     - python
+        #   initialDelaySeconds: 30
+        #   periodSeconds: 10

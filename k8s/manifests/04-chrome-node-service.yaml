@@ -1,0 +1,27 @@
+---
+# Chrome Node Service
+# Exposes Chrome Nodes within the cluster
+# Test Controller uses this service to connect to Chrome Nodes
+apiVersion: v1
+kind: Service
+metadata:
+  name: chrome-node-service
+  namespace: test-automation
+  labels:
+    app: test-automation
+    component: chrome-node
+spec:
+  # ClusterIP = Internal service, only accessible within the cluster
+  # Perfect for backend services that don't need external access
+  type: ClusterIP
+
+  # Service will route traffic to pods with these labels
+  selector:
+    app: test-automation
+    component: chrome-node
+
+  ports:
+  - name: selenium
+    protocol: TCP
+    port: 4444        # Port that clients use to connect
+    targetPort: 4444  # Port on the container

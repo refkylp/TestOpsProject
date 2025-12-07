@@ -1,0 +1,10 @@
+---
+# Namespace for test automation resources
+# Namespaces provide logical isolation and resource management
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: test-automation
+  labels:
+    app: test-automation
+    environment: dev
