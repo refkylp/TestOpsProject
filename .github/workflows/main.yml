@@ -45,22 +45,22 @@ jobs:
 
       - name: Build & Push test-chrome image
         run: |
-          IMAGE_URI="$ACCOUNT_ID.dkr.ecr.${AWS_REGION}.amazonaws.com/${CHROME_REPO_NAME}:latest"
+          IMAGE_URI="${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${CHROME_REPO_NAME}:latest"
           echo "Building $IMAGE_URI"
           docker build -f docker/Dockerfile.chromenode -t "$IMAGE_URI" .
           docker push "$IMAGE_URI"
 
       - name: Build & Push test-controller image
         run: |
-          IMAGE_URI="$ACCOUNT_ID.dkr.ecr.${AWS_REGION}.amazonaws.com/${CONTROLLER_REPO_NAME}:latest"
+          IMAGE_URI="${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${CONTROLLER_REPO_NAME}:latest"
           echo "Building $IMAGE_URI"
           docker build -f docker/Dockerfile.controller -t "$IMAGE_URI" .
           docker push "$IMAGE_URI"
       
       - name: Update Kubernetes manifests with ECR image URLs
         run: |
-          CHROME_IMAGE_URI="$ACCOUNT_ID.dkr.ecr.${AWS_REGION}.amazonaws.com/${CHROME_REPO_NAME}:latest"
-          CONTROLLER_IMAGE_URI="$ACCOUNT_ID.dkr.ecr.${AWS_REGION}.amazonaws.com/${CONTROLLER_REPO_NAME}:latest"
+          CHROME_IMAGE_URI="${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${CHROME_REPO_NAME}:latest"
+          CONTROLLER_IMAGE_URI="${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${CONTROLLER_REPO_NAME}:latest"
 
           sed -i "0,/image:/{s|image:.*|image: $CHROME_IMAGE_URI|}" k8s/manifests/03-chrome-node-deployment.yaml
           sed -i "0,/image:/{s|image:.*|image: $CONTROLLER_IMAGE_URI|}" k8s/manifests/05-test-controller-deployment.yaml
