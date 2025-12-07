@@ -30,7 +30,7 @@ spec:
       containers:
       - name: chrome-node
         # Docker image built from Dockerfile.chromenode
-        image: 114195610881.dkr.ecr.us-east-1.amazonaws.com/test-chrome:latest
+        image: 114195610881.dkr.ecr.us-east-1.amazonaws.com/chrome-node2:latest
         imagePullPolicy: Always
 
         ports:

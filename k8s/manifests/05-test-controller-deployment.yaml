@@ -31,7 +31,7 @@ spec:
       containers:
       - name: test-controller
         # Docker image built from Dockerfile.controller
-        image: 114195610881.dkr.ecr.us-east-1.amazonaws.com/ops-controller:latest
+        image: 114195610881.dkr.ecr.us-east-1.amazonaws.com/test-controller2:latest
         imagePullPolicy: IfNotPresent
 
         # Environment variables from ConfigMap
